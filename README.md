@@ -9,6 +9,14 @@ A React Component to wrap watermark text on child component, using generated svg
 
 > this Component requires react version >=16.8.0, in order to use react hook feature
 
+```bash
+yarn add @hirohe/react-watermark
+# or
+npm i --save @hirohe/react-watermark
+```
+
+e.g.
+
 ```jsx
 const ContentWithWatermark = () => (
   <Watermark text="Mark">
