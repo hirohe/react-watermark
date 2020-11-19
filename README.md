@@ -1,6 +1,7 @@
 # React Watermark Component
 
----
+![version](https://badge.fury.io/js/%40hirohe%2Freact-watermark.svg)
+
 
 A React Component to wrap watermark text on child component, using generated svg as background-image
 
@@ -20,7 +21,6 @@ const ContentWithWatermark = () => (
 
 ![example](./doc/example.png)
 
----
 
 ## Props
 
