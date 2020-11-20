@@ -12,6 +12,9 @@
   ],
   "main": "./build/index.js",
   "module": "./build/index.esm.js",
+  "files": [
+    "build"
+  ],
   "scripts": {
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
