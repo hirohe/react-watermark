@@ -1,1 +1,1 @@
-export { default as HelloWorld } from "./Watermark";
+export { default as Watermark } from './Watermark';

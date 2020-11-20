@@ -18,6 +18,8 @@ npm i --save @hirohe/react-watermark
 e.g.
 
 ```jsx
+import { Watermark } from '@hirohe/react-watermark';
+
 const ContentWithWatermark = () => (
   <Watermark text="Mark">
     <div style={{ width: 500, height: 500, backgroundColor: '#5f5f5f' }}>
