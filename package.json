@@ -10,6 +10,7 @@
     "svg",
     "水印"
   ],
+  "repository": "https://github.com/hirohe/react-watermark",
   "main": "./build/index.js",
   "module": "./build/index.esm.js",
   "files": [
