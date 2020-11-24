@@ -5,6 +5,9 @@
 
 A React Component to wrap watermark text on child component, using generated svg as background-image
 
+## Doc
+[Storybook](https://hirohe.github.io/react-watermark/?path=/docs/watermark-test--default)
+
 ## Usage:
 
 > this Component requires react version >=16.8.0, in order to use react hook feature
