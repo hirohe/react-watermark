@@ -29,24 +29,28 @@ const ContentWithWatermark = () => (
 )
 ```
 
-![example](./doc/example.png)
+![example](https://github.com/hirohe/react-watermark/raw/master/doc/example.png)
 
 
 ## Props
 
-| prop      | description                    | type         | default |
-|-----------|--------------------------------|--------------|---------|
-| text      | watermark text                 | string       | -       |
-| textColor | color of watermark             | color string | #cccccc |
-| textSize  | watermark text size in px unit | number       | 24      |
-| opacity   | watermark text opacity         | number       | 0.2     |
+| prop         | description                    | type         | default                      |
+|--------------|--------------------------------|--------------|------------------------------|
+| show         | show watermark or not          | boolean      | true                         |
+| text         | watermark text                 | string       | -                            |
+| textColor    | color of watermark             | color string | #cccccc                      |
+| textSize     | watermark text size in px unit | number       | 24                           |
+| fontFamily   | watermark text font-family     | string       | Arial, Helvetica, sans-serif |
+| opacity      | watermark text opacity         | number       | 0.2                          |
+| rotate       | watermark text rotate degree   | number       | -45                          |
+| gutter       | gutter between watermark text  | number       | 0                            |
+| wrapperStyle | style of div wrapper           | number       | -                            |
 
 
 ## TODO
 
-- [ ] custom font-family
 - [ ] multiline watermark text
-- [ ] adjustable space between watermark
+- [x] adjustable space between watermark
 
 
 ## License
