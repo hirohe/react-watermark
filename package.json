@@ -1,6 +1,6 @@
 {
   "name": "@hirohe/react-watermark",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "A React Component to wrap watermark text on child component, using generated svg as background-image",
   "keywords": [
     "watermark",
