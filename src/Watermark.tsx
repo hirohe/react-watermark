@@ -1,20 +1,65 @@
 import React, { CSSProperties, useEffect, useState } from 'react';
 
+/**
+ * props for Watermark component
+ */
 export interface WatermarkProps {
+  /**
+   * show watermark or not
+   */
   show?: boolean;
+  /**
+   * text content of watermark
+   */
   text: string;
+  /**
+   * text color of watermark, apply to svg fill attribute
+   */
   textColor?: string;
+  /**
+   * text size of watermark, apply to svg font-size attribute
+   */
   textSize?: number;
+  /**
+   * font family of watermark, apply to svg font-family attribute
+   */
   fontFamily?: string;
+  /**
+   * line height of watermark, it will be applied to svg tspan dy attribute
+   * only works when multiline is true
+   */
   lineHeight?: string;
+  /**
+   * whether watermark is multiline or not
+   * text will be split by '\n', and wrapped by svg tspan
+   * default is false
+   */
   multiline?: boolean;
+  /**
+   * opacity of watermark, apply to svg opacity attribute
+   */
   opacity?: number;
+  /**
+   * rotate degree of watermark, apply to svg transform attribute
+   */
   rotate?: number;
+  /**
+   * gutter between text
+   */
   gutter?: number;
+  /**
+   * style of wrapper element
+   */
   wrapperStyle?: CSSProperties;
+  /**
+   * element of wrapper, default is div
+   */
   wrapperElement?: React.ElementType;
 }
 
+/**
+ * generate svg string for watermark
+ */
 function generateSvg(options: Required<Omit<WatermarkProps, 'wrapperStyle' | 'wrapperElement' | 'show'>>) {
   const { text, textColor, textSize, fontFamily, lineHeight, multiline, opacity, gutter, rotate } = options;
   const rect = calcTextRenderedRect(text, textSize, lineHeight, fontFamily);
