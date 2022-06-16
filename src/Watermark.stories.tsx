@@ -23,9 +23,31 @@ export default {
   }
 };
 
-export const Default = ({ ...rest }): React.ReactNode => (
-  <Watermark text={'Hello World'} {...rest}>
+const Template = (args): React.ReactNode => (
+  <Watermark {...args}>
     <div style={{ height: 500, backgroundColor: '#5f5f5f' }}>
     </div>
   </Watermark>
 );
+
+export const Default = Template.bind({});
+Default.args = {
+  text: 'Hello World'
+};
+
+export const MultilineText = Template.bind({});
+MultilineText.args = {
+  text: 'Hello\nagain',
+  multiline: true,
+  gutter: 16
+};
+
+export const MultilineTextWithLineHeight = Template.bind({});
+MultilineTextWithLineHeight.args = {
+  text: '🌚\n🚀',
+  multiline: true,
+  lineHeight: '3.2rem',
+  gutter: 24,
+  rotate: 0,
+  opacity: 1
+};

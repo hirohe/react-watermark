@@ -1,4 +1,4 @@
-import React, {CSSProperties, useEffect, useState} from 'react';
+import React, { CSSProperties, useEffect, useState } from 'react';
 
 export interface WatermarkProps {
   show?: boolean;
@@ -6,35 +6,49 @@ export interface WatermarkProps {
   textColor?: string;
   textSize?: number;
   fontFamily?: string;
+  lineHeight?: string;
+  multiline?: boolean;
   opacity?: number;
   rotate?: number;
   gutter?: number;
   wrapperStyle?: CSSProperties;
+  wrapperElement?: React.ElementType;
 }
 
-function generateSvg(options: Required<Omit<WatermarkProps, 'wrapperStyle' | 'show'>>) {
-  const { text, textColor, textSize, fontFamily, opacity, gutter, rotate } = options;
-  const size = calcTextRenderedWidth(text, textSize, fontFamily) + gutter;
+function generateSvg(options: Required<Omit<WatermarkProps, 'wrapperStyle' | 'wrapperElement' | 'show'>>) {
+  const { text, textColor, textSize, fontFamily, lineHeight, multiline, opacity, gutter, rotate } = options;
+  const rect = calcTextRenderedRect(text, textSize, lineHeight, fontFamily);
+  const size = Math.sqrt(rect.width * rect.width + rect.height * rect.height) + gutter * 2;
   const center = size / 2;
-  return `<svg width="${size}" height="${size}" xmlns="http://www.w3.org/2000/svg"><text fill="${textColor}" x="50%" y="50%" font-size="${textSize}" text-anchor="middle" font-family="${fontFamily}" transform="rotate(${rotate} ${center} ${center})" opacity="${opacity}">${text}</text></svg>`;
+
+  let textContent = text;
+  if (multiline) {
+    const texts = text.split('\n').map((textByLine, index) => {
+      return `<tspan x='50%' dy='${index === 0 ? '0' : lineHeight}'>${textByLine}</tspan>`;
+    });
+    textContent = texts.join('');
+  }
+
+  const textEl = `<text fill='${textColor}' x='50%' y='50%' font-size='${textSize}' text-anchor='middle' font-family='${fontFamily}' transform='rotate(${rotate} ${center} ${center})' opacity='${opacity}'>${textContent}</text>`;
+
+  return `<svg width='${size}' height='${size / 1.5}' xmlns='http://www.w3.org/2000/svg'>${textEl}</svg>`;
 }
 
-function calcTextRenderedWidth(text: string, fontSize: number, fontFamily: string) {
+function calcTextRenderedRect(text: string, fontSize: number, lineHeight: string, fontFamily: string): DOMRect {
   const span = document.createElement('span');
   span.innerText = text;
   span.style.fontSize = fontSize + 'px';
   span.style.fontFamily = fontFamily;
   span.style.visibility = 'hidden';
   document.body.appendChild(span);
-  const width = span.offsetWidth;
+  const rect = span.getBoundingClientRect();
   document.body.removeChild(span);
-  return width;
+  return rect;
 }
 
 const watermarkWrapperStyle: CSSProperties = {
-  position: 'relative',
-
-}
+  position: 'relative'
+};
 
 const Watermark: React.FC<WatermarkProps> = ({
   show = true,
@@ -43,15 +57,18 @@ const Watermark: React.FC<WatermarkProps> = ({
   textSize = 24,
   fontFamily = 'Arial, Helvetica, sans-serif',
   opacity = 0.2,
+  lineHeight = '1.2rem',
+  multiline = false,
   wrapperStyle,
+  wrapperElement = 'div',
   gutter = 0,
   rotate = -45,
-  children,
+  children
 }) => {
   const [backgroundImage, setBackgroundImage] = useState<string>('');
 
   useEffect(() => {
-    const svg = generateSvg({ text, textColor, textSize, fontFamily, opacity, gutter, rotate });
+    const svg = generateSvg({ text, textColor, textSize, fontFamily, opacity, gutter, rotate, multiline, lineHeight });
     const convertedSvg = encodeURIComponent(svg)
       .replace(/'/g, '%27')
       .replace(/"/g, '%22');
@@ -68,14 +85,16 @@ const Watermark: React.FC<WatermarkProps> = ({
     content: '',
     backgroundRepeat: 'repeat',
     zIndex: 1,
-    backgroundImage,
-  }
+    backgroundImage
+  };
+
+  const Wrapper = wrapperElement;
 
   return (
-    <div style={{ ...watermarkWrapperStyle, ...wrapperStyle }}>
+    <Wrapper style={{ ...watermarkWrapperStyle, ...wrapperStyle }}>
       {show && <div style={watermarkStyle} />}
       {children}
-    </div>
+    </Wrapper>
   );
 };
 
