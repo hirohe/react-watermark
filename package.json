@@ -13,7 +13,7 @@
   "repository": "https://github.com/hirohe/react-watermark",
   "main": "./build/index.js",
   "module": "./build/index.esm.js",
-  "types": "./index.d.ts",
+  "types": "./build/index.d.ts",
   "files": [
     "build",
     "index.d.ts"
@@ -21,7 +21,7 @@
   "scripts": {
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "build": "rollup -c"
+    "build": "tsc --emitDeclarationOnly && rollup -c"
   },
   "author": "hirohe",
   "license": "MIT",
