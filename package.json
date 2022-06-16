@@ -1,6 +1,6 @@
 {
   "name": "@hirohe/react-watermark",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A React Component to wrap watermark text on child component, using generated svg as background-image",
   "keywords": [
     "watermark",
@@ -16,7 +16,7 @@
   "types": "./build/index.d.ts",
   "files": [
     "build",
-    "index.d.ts"
+    "src"
   ],
   "scripts": {
     "storybook": "start-storybook -p 6006",
