@@ -55,12 +55,16 @@ export interface WatermarkProps {
    * element of wrapper, default is div
    */
   wrapperElement?: React.ElementType;
+  /**
+   * in react18, FC needs a definition of children
+   */
+  children?: React.ReactNode;
 }
 
 /**
  * generate svg string for watermark
  */
-function generateSvg(options: Required<Omit<WatermarkProps, 'wrapperStyle' | 'wrapperElement' | 'show'>>) {
+function generateSvg(options: Required<Omit<WatermarkProps, 'wrapperStyle' | 'wrapperElement' | 'show' | 'children'>>) {
   const { text, textColor, textSize, fontFamily, lineHeight, multiline, opacity, gutter, rotate } = options;
   const rect = calcTextRenderedRect(text, textSize, lineHeight, fontFamily);
   const size = Math.sqrt(rect.width * rect.width + rect.height * rect.height) + gutter * 2;
