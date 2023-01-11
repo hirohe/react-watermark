@@ -56,6 +56,10 @@ export interface WatermarkProps {
    */
   wrapperElement?: React.ElementType;
   /**
+   * overlapping level of watermark element
+   */
+  zIndex?: number;
+  /**
    * in react18, FC needs a definition of children
    */
   children?: React.ReactNode;
@@ -64,7 +68,7 @@ export interface WatermarkProps {
 /**
  * generate svg string for watermark
  */
-function generateSvg(options: Required<Omit<WatermarkProps, 'wrapperStyle' | 'wrapperElement' | 'show' | 'children'>>) {
+function generateSvg(options: Required<Omit<WatermarkProps, 'wrapperStyle' | 'wrapperElement' | 'show' | 'zIndex' | 'children'>>) {
   const { text, textColor, textSize, fontFamily, lineHeight, multiline, opacity, gutter, rotate } = options;
   const rect = calcTextRenderedRect(text, textSize, lineHeight, fontFamily);
   const size = Math.sqrt(rect.width * rect.width + rect.height * rect.height) + gutter * 2;
@@ -112,6 +116,7 @@ const Watermark: React.FC<WatermarkProps> = ({
   wrapperElement = 'div',
   gutter = 0,
   rotate = -45,
+  zIndex = 1,
   children
 }) => {
   const [backgroundImage, setBackgroundImage] = useState<string>('');
@@ -133,7 +138,7 @@ const Watermark: React.FC<WatermarkProps> = ({
     right: 0,
     content: '',
     backgroundRepeat: 'repeat',
-    zIndex: 1,
+    zIndex,
     backgroundImage
   };
 
